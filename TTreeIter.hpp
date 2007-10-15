@@ -12,6 +12,10 @@
 #ifndef TTREEITER_HPP
 #define TTREEITER_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
 /******************************************************************************
 ** 
 ** The template version of the tree forward iterator.

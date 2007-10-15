@@ -12,6 +12,15 @@
 #ifndef FILEFINDER_HPP
 #define FILEFINDER_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include <WCL/Path.hpp>
+#include <WCL/StrArray.hpp>
+#include "TTree.hpp"
+#include "TTreeIter.hpp"
+
 /******************************************************************************
 ** 
 ** The class used to hold the file list for a directory.

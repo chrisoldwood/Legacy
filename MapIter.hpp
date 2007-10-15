@@ -12,6 +12,14 @@
 #ifndef MAPITER_HPP
 #define MAPITER_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+// Forward declarations.
+class CMap;
+class CMapItem;
+
 /******************************************************************************
 ** 
 ** Class used to iterate over a CMap.

@@ -12,6 +12,10 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
 /******************************************************************************
 ** 
 ** This is the base class used for items stored in a map collection.

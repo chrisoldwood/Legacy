@@ -12,6 +12,12 @@
 #ifndef TMAPITER_HPP
 #define TMAPITER_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include "MapIter.hpp"
+
 /******************************************************************************
 ** 
 ** The template version of the map iterator.

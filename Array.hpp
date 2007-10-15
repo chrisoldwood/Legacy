@@ -12,6 +12,10 @@
 #ifndef ARRAY_HPP
 #define ARRAY_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
 /******************************************************************************
 ** 
 ** This is the base class for all array collections.

@@ -12,6 +12,12 @@
 #ifndef STLUTILS_HPP
 #define STLUTILS_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include <algorithm>
+
 /******************************************************************************
 ** Helper function for std::for_each() etc to invoke delete on each element.
 */

@@ -12,6 +12,12 @@
 #ifndef TREE_HPP
 #define TREE_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include "TArray.hpp"
+
 /******************************************************************************
 ** 
 ** The template class used to hold a node in the tree.
