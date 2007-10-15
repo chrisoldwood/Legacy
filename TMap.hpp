@@ -12,7 +12,11 @@
 #ifndef WCL_TMAP_HPP
 #define WCL_TMAP_HPP
 
-#include "Map.hpp"
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include <Legacy/Map.hpp>
 
 /******************************************************************************
 ** 
@@ -99,11 +103,6 @@ template<> inline uint HashKey<CString>(CString Key)
 *******************************************************************************
 */
 
-#ifdef _DEBUG
-// For memory leak detection.
-#define new DBGCRT_NEW
-#endif
-
 template<class K, class V> inline TMap<K, V>::TMap()
 {
 }
@@ -172,9 +171,5 @@ template<class K, class V> inline bool TMapItem<K, V>::operator==(const CMapItem
 
 	return (m_Key == pRHS->m_Key);
 }
-
-#ifdef _DEBUG
-#undef new
-#endif
 
 #endif // WCL_TMAP_HPP

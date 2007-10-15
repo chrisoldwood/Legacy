@@ -12,6 +12,10 @@
 #ifndef WCL_TARRAY_HPP
 #define WCL_TARRAY_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
 #include "Array.hpp"
 
 /******************************************************************************
@@ -145,11 +149,6 @@ private:
 **
 *******************************************************************************
 */
-
-#ifdef _DEBUG
-// For memory leak detection.
-#define new DBGCRT_NEW
-#endif
 
 template<class T> inline TArray<T>::TArray<T>()
 	: CArray(sizeof(T))
@@ -373,9 +372,5 @@ template<class T> inline void TRefArray<T>::Insert(int nIndex, T* pItem)
 
 	TPtrArray<T>::Insert(nIndex, pItem);
 }
-
-#ifdef _DEBUG
-#undef new
-#endif
 
 #endif // WCL_TARRAY_HPP

@@ -12,6 +12,12 @@
 #ifndef STRPTRMAP_HPP
 #define STRPTRMAP_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include "Map.hpp"
+
 /******************************************************************************
 ** 
 ** This is the base class used for items stored in a str->ptr map collection.
@@ -77,11 +83,6 @@ protected:
 *******************************************************************************
 */
 
-#ifdef _DEBUG
-// For memory leak detection.
-#define new DBGCRT_NEW
-#endif
-
 inline CStrPtrMap::CStrPtrMap()
 	: CMap()
 {
@@ -134,9 +135,5 @@ inline bool CStrPtrMapItem::operator==(const CMapItem& rRHS) const
 
 	return (m_strKey == pRHS->m_strKey);
 }
-
-#ifdef _DEBUG
-#undef new
-#endif
 
 #endif //STRPTRMAP_HPP
