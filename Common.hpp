@@ -1,0 +1,29 @@
+////////////////////////////////////////////////////////////////////////////////
+//! \file   Common.hpp
+//! \brief  Wrapper to include the most common library headers.
+//! \author Chris Oldwood
+
+// Check for previous inclusion
+#ifndef LEGACY_COMMON_HPP
+#define LEGACY_COMMON_HPP
+
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+////////////////////////////////////////////////////////////////////////////////
+// Library documentation
+//
+//! \namespace Legacy
+//! \brief     The Legacy C++ classes namespace.
+
+////////////////////////////////////////////////////////////////////////////////
+// Standard headers.
+
+#include <Core/Common.hpp>		// Core library common headers.
+#include <WCL/Common.hpp>		// Windows C++ library common headers.
+
+////////////////////////////////////////////////////////////////////////////////
+// Library headers.
+
+#endif // LEGACY_COMMON_HPP
