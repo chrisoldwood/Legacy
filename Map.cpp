@@ -8,13 +8,9 @@
 *******************************************************************************
 */
 
-#include "wcl.hpp"
-#include <typeinfo.h>
-
-#ifdef _DEBUG
-// For memory leak detection.
-#define new DBGCRT_NEW
-#endif
+#include "Common.hpp"
+#include "Map.hpp"
+//#include <typeinfo.h>
 
 /******************************************************************************
 **

@@ -12,6 +12,12 @@
 #ifndef INTPTRMAP_HPP
 #define INTPTRMAP_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include "Map.hpp"
+
 /******************************************************************************
 ** 
 ** This is the base class used for items stored in an int->ptr map collection.
@@ -77,11 +83,6 @@ protected:
 *******************************************************************************
 */
 
-#ifdef _DEBUG
-// For memory leak detection.
-#define new DBGCRT_NEW
-#endif
-
 inline CIntPtrMap::CIntPtrMap()
 	: CMap()
 {
@@ -129,9 +130,5 @@ inline bool CIntPtrMapItem::operator==(const CMapItem& rRHS) const
 
 	return (m_iKey == pRHS->m_iKey);
 }
-
-#ifdef _DEBUG
-#undef new
-#endif
 
 #endif //INTPTRMAP_HPP
