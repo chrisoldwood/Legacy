@@ -12,43 +12,19 @@
 #ifndef HANDLEMAP_HPP
 #define HANDLEMAP_HPP
 
-/******************************************************************************
-** 
-** This is the base class used for items stored in a handle map collection.
-**
-*******************************************************************************
-*/
-
-class CHandleMapItem : public CMapItem
-{
-public:
-	//
-	// Constructors/Destructor.
-	//
-	CHandleMapItem(HANDLE hHandle, void* pObject);
-	virtual ~CHandleMapItem();
-
-	//
-	// Methods.
-	//
-	virtual uint Key() const;
-	virtual bool operator==(const CMapItem& rRHS) const;
-
-	//
-	// Members.
-	//
-	HANDLE	m_hHandle;
-	void*	m_pObject;
-};
+#if _MSC_VER > 1000
+#pragma once
+#endif
 
 /******************************************************************************
 ** 
 ** This is the map used to link generic handles to objects.
+** NB: This used to be based on the WCL CMap class.
 **
 *******************************************************************************
 */
 
-class CHandleMap : public CMap
+class CHandleMap
 {
 public:
 	//
@@ -65,9 +41,13 @@ public:
 	void* Find(HANDLE hHandle) const;
 
 protected:
+	// Type shorthands.
+	typedef std::map<HANDLE, void*> HandleObjectMap;
+
 	//
 	// Members.
 	//
+	HandleObjectMap	m_oMap;		//!< The underlying container.
 };
 
 /******************************************************************************
@@ -77,13 +57,7 @@ protected:
 *******************************************************************************
 */
 
-#ifdef _DEBUG
-// For memory leak detection.
-#define new DBGCRT_NEW
-#endif
-
 inline CHandleMap::CHandleMap()
-	: CMap()
 {
 }
 
@@ -95,49 +69,24 @@ inline void CHandleMap::Add(HANDLE hHandle, void* pObject)
 {
 	ASSERT(hHandle != NULL);
 
-	CMap::Add(*(new CHandleMapItem(hHandle, pObject)));
+	m_oMap.insert(std::make_pair(hHandle, pObject));
 }
 
 inline void CHandleMap::Remove(HANDLE hHandle)
 {
 	ASSERT(hHandle != NULL);
+	ASSERT(m_oMap.find(hHandle) != m_oMap.end());
 
-	CMap::Remove(CHandleMapItem(hHandle, NULL));
+	m_oMap.erase(m_oMap.find(hHandle));
 }
 
 inline void* CHandleMap::Find(HANDLE hHandle) const
 {
 	ASSERT(hHandle);
 
-	CHandleMapItem* pItem = (CHandleMapItem*) CMap::Find(CHandleMapItem(hHandle, NULL));
+	HandleObjectMap::const_iterator it = m_oMap.find(hHandle);
 
-	return (pItem != NULL) ? pItem->m_pObject : NULL;
+	return (it != m_oMap.end()) ? it->second : NULL;
 }
-
-inline CHandleMapItem::CHandleMapItem(HANDLE hHandle, void* pObject)
-	: m_hHandle(hHandle)
-	, m_pObject(pObject)
-{
-}
-
-inline CHandleMapItem::~CHandleMapItem()
-{
-}
-
-inline uint CHandleMapItem::Key() const
-{
-	return (uint) m_hHandle;
-}
-
-inline bool CHandleMapItem::operator==(const CMapItem& rRHS) const
-{
-	CHandleMapItem* pRHS = (CHandleMapItem*) &rRHS;
-
-	return (m_hHandle == pRHS->m_hHandle);
-}
-
-#ifdef _DEBUG
-#undef new
-#endif
 
 #endif //HANDLEMAP_HPP
