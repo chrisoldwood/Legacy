@@ -150,12 +150,12 @@ private:
 *******************************************************************************
 */
 
-template<class T> inline TArray<T>::TArray<T>()
+template<class T> inline TArray<T>::TArray()
 	: CArray(sizeof(T))
 {
 }
 
-template<class T> inline TArray<T>::~TArray<T>()
+template<class T> inline TArray<T>::~TArray()
 {
 }
 

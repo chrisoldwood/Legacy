@@ -123,12 +123,12 @@ private:
 *******************************************************************************
 */
 
-template<class T> inline TTreeNode<T>::TTreeNode<T>()
+template<class T> inline TTreeNode<T>::TTreeNode()
 	: m_pParent(NULL)
 {
 }
 
-template<class T> inline TTreeNode<T>::~TTreeNode<T>()
+template<class T> inline TTreeNode<T>::~TTreeNode()
 {
 	for (int i = 0; i < m_apNodes.Size(); i++)
 		delete m_apNodes[i];
@@ -173,12 +173,12 @@ template<class T> inline void TTreeNode<T>::Parent(TTreeNode<T>* pNode)
 *******************************************************************************
 */
 
-template<class T> inline TTree<T>::TTree<T>()
+template<class T> inline TTree<T>::TTree()
 	: m_pRoot(NULL)
 {
 }
 
-template<class T> inline TTree<T>::~TTree<T>()
+template<class T> inline TTree<T>::~TTree()
 {
 	Clear();
 }
