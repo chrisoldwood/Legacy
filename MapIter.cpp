@@ -26,7 +26,7 @@
 
 CMapIter::CMapIter(const CMap& oMap)
 	: m_oMap(oMap)
-	, m_nBucket(-1)
+	, m_nBucket(0)
 	, m_pCurrent(NULL)
 {
 }
@@ -73,7 +73,7 @@ CMapItem* CMapIter::Next()
 		return m_pCurrent;
 	}
 
-	m_nBucket++;
+	++m_nBucket;
 
 	// Try next bucket.
 	while (m_nBucket < m_oMap.m_iSize)
@@ -83,7 +83,7 @@ CMapItem* CMapIter::Next()
 		if (m_pCurrent != NULL)
 			return m_pCurrent;
 
-		m_nBucket++;
+		++m_nBucket;
 	}
 
 	return NULL;

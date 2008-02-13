@@ -89,7 +89,7 @@ template<class T> inline TTreeNode<T>* TTreeFwdIter<T>::Next()
 		pNode = m_pNode;
 
 		// Populate iterator stack...
-		for (int i = 0; i < m_pNode->NumNodes(); ++i)
+		for (size_t i = 0; i < m_pNode->NumNodes(); ++i)
 			m_vIterStack.Add(new CIter(m_pNode->Node(i)));
 
 		m_pNode = NULL;

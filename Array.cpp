@@ -23,7 +23,7 @@
 *******************************************************************************
 */
 
-CArray::CArray(int nItemSize)
+CArray::CArray(size_t nItemSize)
 	: m_pData(NULL)
 	, m_nSize(0)
 	, m_nAllocSize(0)
@@ -57,7 +57,7 @@ CArray::CArray(const CArray& rArray)
 		int nBytes = m_nAllocSize * m_nItemSize;
 
 		// Allocate the array.
-		m_pData = (byte*) realloc(m_pData, nBytes);
+		m_pData = static_cast<byte*>(realloc(m_pData, nBytes));
 
 		// Copy the data.
 		memcpy(m_pData, rArray.m_pData, nBytes);
@@ -93,7 +93,7 @@ CArray::~CArray()
 *******************************************************************************
 */
 
-void CArray::Reserve(int nSize)
+void CArray::Reserve(size_t nSize)
 {
 	// Buffer already big enough?
 	if (nSize <= m_nAllocSize)
@@ -106,7 +106,7 @@ void CArray::Reserve(int nSize)
 	int nBytes = m_nAllocSize * m_nItemSize;
 
 	// Allocate it...
-	m_pData = (byte*) realloc(m_pData, nBytes);
+	m_pData = static_cast<byte*>(realloc(m_pData, nBytes));
 	ASSERT(m_pData);
 }
 
@@ -123,9 +123,9 @@ void CArray::Reserve(int nSize)
 *******************************************************************************
 */
 
-void CArray::Set(int nIndex, const void* pItem)
+void CArray::Set(size_t nIndex, const void* pItem)
 {
-	ASSERT((nIndex >= 0) && (nIndex <= m_nSize));
+	ASSERT(nIndex <= m_nSize);
 
 	// Calculate offset to the position.
 	byte* pPos = m_pData + (nIndex * m_nItemSize);
@@ -173,7 +173,7 @@ int CArray::Add(const void* pItem)
 *******************************************************************************
 */
 
-void CArray::Insert(int nIndex, const void* pItem)
+void CArray::Insert(size_t nIndex, const void* pItem)
 {
 	ASSERT((nIndex >= 0) && (nIndex <= m_nSize));
 
@@ -192,7 +192,7 @@ void CArray::Insert(int nIndex, const void* pItem)
 	// Copy the new item into the array.
 	memcpy(pPos, pItem, m_nItemSize);
 
-	m_nSize++;
+	++m_nSize;
 }
 
 /******************************************************************************
@@ -207,7 +207,7 @@ void CArray::Insert(int nIndex, const void* pItem)
 *******************************************************************************
 */
 
-void CArray::Remove(int nIndex)
+void CArray::Remove(size_t nIndex)
 {
 	ASSERT((nIndex >= 0) && (nIndex < m_nSize));
 

@@ -63,7 +63,7 @@ public:
 	//
 	// Methods.
 	//
-	void Find(const char* pszPath, const char* pszMask, bool bRecurse, CFileTree& oTree);
+	void Find(const tchar* pszPath, const tchar* pszMask, bool bRecurse, CFileTree& oTree);
 
 protected:
 	//
@@ -73,7 +73,7 @@ protected:
 	//
 	// Internal methods.
 	//
-	void Find(CFileTreeNode& oNode, const char* pszMask, bool bRecurse);
+	void Find(CFileTreeNode& oNode, const tchar* pszMask, bool bRecurse);
 };
 
 /******************************************************************************

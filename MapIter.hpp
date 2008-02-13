@@ -41,7 +41,7 @@ protected:
 	// Members.
 	//
 	const CMap&	m_oMap;
-	int			m_nBucket;
+	size_t		m_nBucket;
 	CMapItem*   m_pCurrent;
 
 	//

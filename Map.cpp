@@ -20,7 +20,7 @@
 */
 
 // Array of map sizes.
-int CMap::s_aiSizes[NUM_MAP_SIZES] =
+size_t CMap::s_aiSizes[NUM_MAP_SIZES] =
 {
 	3, 7, 17, 31, 61, 127, 257, 509, 1021, 2053, 4093, 8191, 16381, 32771, 65537
 };
@@ -82,14 +82,14 @@ void CMap::Add(CMapItem& rItem)
 
 	// Map allocated?
 	if (m_iCount == 0)
-		m_pMap = (CMapItem**) calloc(m_iSize, sizeof(CMapItem*));
+		m_pMap = static_cast<CMapItem**>(calloc(m_iSize, sizeof(CMapItem*)));
 	
 	ASSERT(m_pMap);
 
 	// Calculate map bucket.
-	int i = Hash(rItem);
+	size_t i = Hash(rItem);
 	
-	ASSERT((i >= 0) && (i < m_iSize));
+	ASSERT(i < m_iSize);
 
 	// Add to head of collision chain.
 	rItem.m_pNext = m_pMap[i];
@@ -104,7 +104,7 @@ void CMap::Add(CMapItem& rItem)
 	while (pItem != NULL)
 	{
 		pItem = pItem->m_pNext;
-		nChainLen++;
+		++nChainLen;
 	}
 
 	// Chain bigger than expected?
@@ -128,7 +128,7 @@ void CMap::Add(CMapItem& rItem)
 	}*/
 #endif
 
-	m_iCount++;
+	++m_iCount;
 }
 
 /******************************************************************************
@@ -149,9 +149,9 @@ void CMap::Remove(const CMapItem& rItem)
 	ASSERT(m_iCount);
 
 	// Calculate map bucket.
-	int i = Hash(rItem);
+	size_t i = Hash(rItem);
 	
-	ASSERT((i >= 0) && (i < m_iSize));
+	ASSERT(i < m_iSize);
 	
 	// Get head of collision chain.
 	CMapItem*  pItem  = m_pMap[i];
@@ -196,7 +196,7 @@ void CMap::RemoveAll()
 	if (m_iCount != 0)
 	{
 		// For all buckets.
-		for (int i = 0; i < m_iSize; i++)
+		for (size_t i = 0; i < m_iSize; ++i)
 		{
 			CMapItem* pItem = m_pMap[i];
 
@@ -236,9 +236,9 @@ CMapItem* CMap::Find(const CMapItem& rItem) const
 		return NULL;
 
 	// Calculate map bucket.
-	int i = Hash(rItem);
+	size_t i = Hash(rItem);
 	
-	ASSERT((i >= 0) && (i < m_iSize));
+	ASSERT(i < m_iSize);
 
 	// Get head of collision chain.
 	CMapItem*	pItem = m_pMap[i];
@@ -248,7 +248,7 @@ CMapItem* CMap::Find(const CMapItem& rItem) const
 	while ( (pItem) && (rItem != *pItem) )
 	{
 		pItem = pItem->m_pNext;
-		nProbes++;
+		++nProbes;
 	}
 
 	return pItem;
@@ -266,7 +266,7 @@ CMapItem* CMap::Find(const CMapItem& rItem) const
 *******************************************************************************
 */
 
-int CMap::Hash(const CMapItem& rItem) const
+size_t CMap::Hash(const CMapItem& rItem) const
 {
 	return (rItem.Key() % m_iSize);
 }
@@ -284,12 +284,12 @@ int CMap::Hash(const CMapItem& rItem) const
 *******************************************************************************
 */
 
-void CMap::Reserve(int nItems)
+void CMap::Reserve(size_t nItems)
 {
 	ASSERT(m_pMap == NULL);
 
 	// Calculate min table size.
-	int nMinSize = nItems / MAX_CHAIN_LEN;
+	size_t nMinSize = nItems / MAX_CHAIN_LEN;
 
 	// Search the map 'size' table.
 	for (int i = NUM_MAP_SIZES-1; i > 0; i--)

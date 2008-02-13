@@ -34,7 +34,7 @@ inline void DeleteElement(T pElement)
 */
 
 template <typename T>
-inline void Delete(std::vector<T>& vVector, int nIndex)
+inline void Delete(std::vector<T>& vVector, size_t nIndex)
 {
 	delete vVector[nIndex];
 	vVector.erase(vVector.begin()+nIndex);

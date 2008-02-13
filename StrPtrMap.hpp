@@ -104,7 +104,7 @@ inline void CStrPtrMap::Remove(const CString& strKey)
 
 inline void* CStrPtrMap::Find(const CString& strKey) const
 {
-	CStrPtrMapItem* pItem = (CStrPtrMapItem*) CMap::Find(CStrPtrMapItem(strKey, NULL));
+	CStrPtrMapItem* pItem = static_cast<CStrPtrMapItem*>(CMap::Find(CStrPtrMapItem(strKey, NULL)));
 
 	return (pItem != NULL) ? pItem->m_pObject : NULL;
 }
@@ -123,7 +123,7 @@ inline uint CStrPtrMapItem::Key() const
 {
 	uint nKey = 0;
 
-	for (const char* psz = m_strKey; *psz != '\0'; psz++)
+	for (const tchar* psz = m_strKey; *psz != TXT('\0'); ++psz)
 		nKey = (nKey * 17) | *psz;
 
 	return nKey;
@@ -131,7 +131,7 @@ inline uint CStrPtrMapItem::Key() const
 
 inline bool CStrPtrMapItem::operator==(const CMapItem& rRHS) const
 {
-	CStrPtrMapItem* pRHS = (CStrPtrMapItem*) &rRHS;
+	const CStrPtrMapItem* pRHS = static_cast<const CStrPtrMapItem*>(&rRHS);
 
 	return (m_strKey == pRHS->m_strKey);
 }

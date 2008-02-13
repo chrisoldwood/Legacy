@@ -58,7 +58,7 @@ CFileFinder::~CFileFinder()
 *******************************************************************************
 */
 
-void CFileFinder::Find(const char* pszPath, const char* pszMask, bool bRecurse, CFileTree& oTree)
+void CFileFinder::Find(const tchar* pszPath, const tchar* pszMask, bool bRecurse, CFileTree& oTree)
 {
 	ASSERT(pszPath != NULL);
 	ASSERT(pszMask != NULL);
@@ -91,7 +91,7 @@ void CFileFinder::Find(const char* pszPath, const char* pszMask, bool bRecurse, 
 *******************************************************************************
 */
 
-void CFileFinder::Find(CFileTreeNode& oNode, const char* pszMask, bool bRecurse)
+void CFileFinder::Find(CFileTreeNode& oNode, const tchar* pszMask, bool bRecurse)
 {
 	HANDLE			hFind;
 	WIN32_FIND_DATA	oInfo;
@@ -110,7 +110,7 @@ void CFileFinder::Find(CFileTreeNode& oNode, const char* pszMask, bool bRecurse)
 			// Is a directory?
 			if (oInfo.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 			{
-				if ((strFileName != ".") && (strFileName != ".."))
+				if ((strFileName != TXT(".")) && (strFileName != TXT("..")))
 					oNode.m_oData.m_astrDirs.Add(strFileName);
 			}
 			// Is a file.
@@ -128,7 +128,7 @@ void CFileFinder::Find(CFileTreeNode& oNode, const char* pszMask, bool bRecurse)
 	// Recurse into subdirectories?
 	if (bRecurse)
 	{
-		for (int i = 0; i < oNode.m_oData.m_astrDirs.Size(); ++i)
+		for (size_t i = 0; i < oNode.m_oData.m_astrDirs.Size(); ++i)
 		{
 			CFileTreeNode* pNode = new CFileTreeNode();
 

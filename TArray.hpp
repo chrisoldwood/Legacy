@@ -40,20 +40,20 @@ public:
 	//
 	// Methods.
 	//
-	int Size() const;
+	size_t Size() const;
 
-	T At(int nIndex) const;
-	T operator[](int nIndex) const;
+	T At(size_t nIndex) const;
+	T operator[](size_t nIndex) const;
 
-	void Set(int nIndex, T Item);
-	int  Add(T Item);
-	void Insert(int nIndex, T Item);
+	void Set(size_t nIndex, T Item);
+	size_t Add(T Item);
+	void Insert(size_t nIndex, T Item);
 
-	void Remove(int nIndex);
+	void Remove(size_t nIndex);
 	void RemoveAll();
 
 	int  Find(T Item) const;
-	void Swap(int nIndex1, int nIndex2);
+	void Swap(size_t nIndex1, size_t nIndex2);
 
 	void Sort(PFNCOMPARE pfnCompare);
 
@@ -96,7 +96,7 @@ public:
 	//
 	// Methods.
 	//
-	void Delete(int nIndex);
+	void Delete(size_t nIndex);
 	void DeleteAll();
 
 	void ShallowCopy(const TPtrArray<T>& oRHS);
@@ -127,15 +127,15 @@ public:
 	//
 	// Methods.
 	//
-	T& At(int nIndex) const;
-	T& operator[](int nIndex) const;
+	T& At(size_t nIndex) const;
+	T& operator[](size_t nIndex) const;
 
-	void Set(int nIndex, T& rItem);
-	void Set(int nIndex, T* pItem);
-	int  Add(T& pItem);
-	int  Add(T* rItem);
-	void Insert(int nIndex, T& rItem);
-	void Insert(int nIndex, T* pItem);
+	void Set(size_t nIndex, T& rItem);
+	void Set(size_t nIndex, T* pItem);
+	size_t Add(T& pItem);
+	size_t Add(T* rItem);
+	void Insert(size_t nIndex, T& rItem);
+	void Insert(size_t nIndex, T* pItem);
 
 private:
 	// Disallow copies for now.
@@ -159,37 +159,37 @@ template<class T> inline TArray<T>::~TArray()
 {
 }
 
-template<class T> inline int TArray<T>::Size() const
+template<class T> inline size_t TArray<T>::Size() const
 {
 	return CArray::Size();
 }
 
-template<class T> inline T TArray<T>::At(int nIndex) const
+template<class T> inline T TArray<T>::At(size_t nIndex) const
 {
-	return *((T*)CArray::At(nIndex));
+	return *(static_cast<T*>(CArray::At(nIndex)));
 }
 
-template<class T> inline T TArray<T>::operator[](int nIndex) const
+template<class T> inline T TArray<T>::operator[](size_t nIndex) const
 {
-	return *((T*)CArray::At(nIndex));
+	return *(static_cast<T*>(CArray::At(nIndex)));
 }
 
-template<class T> inline void TArray<T>::Set(int nIndex, T Item)
+template<class T> inline void TArray<T>::Set(size_t nIndex, T Item)
 {
 	CArray::Set(nIndex, &Item);
 }
 
-template<class T> inline int TArray<T>::Add(T Item)
+template<class T> inline size_t TArray<T>::Add(T Item)
 {
 	return CArray::Add(&Item);
 }
 
-template<class T> inline void TArray<T>::Insert(int nIndex, T Item)
+template<class T> inline void TArray<T>::Insert(size_t nIndex, T Item)
 {
 	CArray::Insert(nIndex, &Item);
 }
 
-template<class T> inline void TArray<T>::Remove(int nIndex)
+template<class T> inline void TArray<T>::Remove(size_t nIndex)
 {
 	CArray::Remove(nIndex);
 }
@@ -201,7 +201,7 @@ template<class T> inline void TArray<T>::RemoveAll()
 
 template<class T> inline int TArray<T>::Find(T Item) const
 {
-	for (int i = 0; i < Size(); i++)
+	for (size_t i = 0; i < Size(); ++i)
 	{
 		if (At(i) == Item)
 			return i;
@@ -210,7 +210,7 @@ template<class T> inline int TArray<T>::Find(T Item) const
 	return -1;
 }
 
-template<class T> inline void TArray<T>::Swap(int nIndex1, int nIndex2)
+template<class T> inline void TArray<T>::Swap(size_t nIndex1, size_t nIndex2)
 {
 	T Item1 = At(nIndex1);
 	T Item2 = At(nIndex2);
@@ -280,7 +280,7 @@ template<class T> inline TPtrArray<T>::~TPtrArray()
 {
 }
 
-template<class T> inline void TPtrArray<T>::Delete(int nIndex)
+template<class T> inline void TPtrArray<T>::Delete(size_t nIndex)
 {
 	delete TArray<T*>::At(nIndex);
 	Remove(nIndex);
@@ -288,7 +288,7 @@ template<class T> inline void TPtrArray<T>::Delete(int nIndex)
 
 template<class T> inline void TPtrArray<T>::DeleteAll()
 {
-	for (int i = 0; i < Size(); i++)
+	for (size_t i = 0; i < Size(); ++i)
 		delete TArray<T*>::At(i);
 
 	RemoveAll();
@@ -298,7 +298,7 @@ template<class T> inline void TPtrArray<T>::ShallowCopy(const TPtrArray<T>& oRHS
 {
 	Reserve(oRHS.Size());
 
-	for (int i = 0; i < oRHS.Size(); i++)
+	for (size_t i = 0; i < oRHS.Size(); ++i)
 		Add(oRHS.At(i));
 }
 
@@ -306,7 +306,7 @@ template<class T> inline void TPtrArray<T>::DeepCopy(const TPtrArray<T>& oRHS)
 {
 	Reserve(oRHS.Size());
 
-	for (int i = 0; i < oRHS.Size(); i++)
+	for (size_t i = 0; i < oRHS.Size(); ++i)
 	{
 		Add(new T(*oRHS.At(i)));
 	}
@@ -327,46 +327,46 @@ template<class T> inline TRefArray<T>::~TRefArray()
 {
 }
 
-template<class T> inline T& TRefArray<T>::At(int nIndex) const
+template<class T> inline T& TRefArray<T>::At(size_t nIndex) const
 {
 	return *(TPtrArray<T>::At(nIndex));
 }
 
-template<class T> inline T& TRefArray<T>::operator[](int nIndex) const
+template<class T> inline T& TRefArray<T>::operator[](size_t nIndex) const
 {
 	return *(TPtrArray<T>::At(nIndex));
 }
 
-template<class T> inline void TRefArray<T>::Set(int nIndex, T& rItem)
+template<class T> inline void TRefArray<T>::Set(size_t nIndex, T& rItem)
 {
 	TPtrArray<T>::Set(nIndex, &rItem);
 }
 
-template<class T> inline void TRefArray<T>::Set(int nIndex, T* pItem)
+template<class T> inline void TRefArray<T>::Set(size_t nIndex, T* pItem)
 {
 	ASSERT(pItem != NULL);
 
 	TPtrArray<T>::Set(nIndex, pItem);
 }
 
-template<class T> inline int TRefArray<T>::Add(T& rItem)
+template<class T> inline size_t TRefArray<T>::Add(T& rItem)
 {
 	return TPtrArray<T>::Add(&rItem);
 }
 
-template<class T> inline int TRefArray<T>::Add(T* pItem)
+template<class T> inline size_t TRefArray<T>::Add(T* pItem)
 {
 	ASSERT(pItem != NULL);
 
 	return TPtrArray<T>::Add(pItem);
 }
 
-template<class T> inline void TRefArray<T>::Insert(int nIndex, T& rItem)
+template<class T> inline void TRefArray<T>::Insert(size_t nIndex, T& rItem)
 {
 	TPtrArray<T>::Insert(nIndex, &rItem);
 }
 
-template<class T> inline void TRefArray<T>::Insert(int nIndex, T* pItem)
+template<class T> inline void TRefArray<T>::Insert(size_t nIndex, T* pItem)
 {
 	ASSERT(pItem != NULL);
 

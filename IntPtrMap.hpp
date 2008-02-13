@@ -104,7 +104,7 @@ inline void CIntPtrMap::Remove(int iKey)
 
 inline void* CIntPtrMap::Find(int iKey) const
 {
-	CIntPtrMapItem* pItem = (CIntPtrMapItem*) CMap::Find(CIntPtrMapItem(iKey, NULL));
+	CIntPtrMapItem* pItem = static_cast<CIntPtrMapItem*>(CMap::Find(CIntPtrMapItem(iKey, NULL)));
 
 	return (pItem != NULL) ? pItem->m_pObject : NULL;
 }
@@ -121,12 +121,12 @@ inline CIntPtrMapItem::~CIntPtrMapItem()
 
 inline uint CIntPtrMapItem::Key() const
 {
-	return (uint)m_iKey;
+	return m_iKey;
 }
 
 inline bool CIntPtrMapItem::operator==(const CMapItem& rRHS) const
 {
-	CIntPtrMapItem* pRHS = (CIntPtrMapItem*) &rRHS;
+	const CIntPtrMapItem* pRHS = static_cast<const CIntPtrMapItem*>(&rRHS);
 
 	return (m_iKey == pRHS->m_iKey);
 }

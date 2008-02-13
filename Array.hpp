@@ -29,12 +29,12 @@ public:
 	//
 	// Attributes.
 	//
-	int Size() const;
+	size_t Size() const;
 
 	//
 	// Memory methods.
 	//
-	virtual void Reserve(int nSize);
+	virtual void Reserve(size_t nSize);
 
 protected:
 	// Sort callback function.
@@ -43,7 +43,7 @@ protected:
 	//
 	// Constructors/Destructor.
 	//
-	CArray(int nItemSize);
+	CArray(size_t nItemSize);
 	CArray(const CArray& rArray);
 	~CArray();
 
@@ -51,20 +51,20 @@ protected:
 	// Members.
 	//
 	byte*	m_pData;
-	int		m_nSize;
-	int		m_nAllocSize;
-	int		m_nItemSize;
+	size_t	m_nSize;
+	size_t	m_nAllocSize;
+	size_t	m_nItemSize;
 
 	//
 	// Internal Methods.
 	//
-	void* At(int nIndex) const;
-	void* operator[](int nIndex) const;
+	void* At(size_t nIndex) const;
+	void* operator[](size_t nIndex) const;
 
-	void Set(int nIndex, const void* pItem);
+	void Set(size_t nIndex, const void* pItem);
 	int  Add(const void* pItem);
-	void Insert(int nIndex, const void* pItem);
-	void Remove(int nIndex);
+	void Insert(size_t nIndex, const void* pItem);
+	void Remove(size_t nIndex);
 	void RemoveAll();
 
 	void Sort(PFNQSCOMPARE pfnCompare);
@@ -77,19 +77,19 @@ protected:
 *******************************************************************************
 */
 
-inline int CArray::Size() const
+inline size_t CArray::Size() const
 {
 	return m_nSize;
 }
 
-inline void* CArray::At(int nIndex) const
+inline void* CArray::At(size_t nIndex) const
 {
-	ASSERT((nIndex >= 0) && (nIndex < m_nSize));
+	ASSERT(nIndex < m_nSize);
 
 	return (m_pData + (nIndex * m_nItemSize));
 }
 
-inline void* CArray::operator[](int nIndex) const
+inline void* CArray::operator[](size_t nIndex) const
 {
 	return At(nIndex);
 }

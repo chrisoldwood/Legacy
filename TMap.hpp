@@ -83,14 +83,14 @@ public:
 
 template<class K> inline uint HashKey(K Key)
 {
-	return (uint) Key;
+	return reinterpret_cast<uint>(Key);
 }
 
 template<> inline uint HashKey<CString>(CString Key)
 {
 	uint nValue  = 0;
 
-	for (const char* pChar = Key; *pChar != '\0'; ++pChar)
+	for (const tchar* pChar = Key; *pChar != TXT('\0'); ++pChar)
 		nValue = (nValue * 17) | *pChar;
 
 	return nValue;
