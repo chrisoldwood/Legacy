@@ -26,7 +26,7 @@
 
 CMapIter::CMapIter(const CMap& oMap)
 	: m_oMap(oMap)
-	, m_nBucket(0)
+	, m_nBucket(static_cast<size_t>(-1))
 	, m_pCurrent(NULL)
 {
 }
