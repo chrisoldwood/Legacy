@@ -221,7 +221,7 @@ template<class T> inline void TArray<T>::Swap(size_t nIndex1, size_t nIndex2)
 
 template<class T> inline void TArray<T>::Sort(PFNCOMPARE pfnCompare)
 {
-	CArray::Sort((PFNQSCOMPARE)pfnCompare);
+	CArray::Sort(pfnCompare);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
