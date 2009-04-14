@@ -54,7 +54,7 @@ CArray::CArray(const CArray& rArray)
 	if (rArray.m_pData != NULL)
 	{
 		// Calculate number of bytes to allocate.
-		int nBytes = m_nAllocSize * m_nItemSize;
+		size_t nBytes = m_nAllocSize * m_nItemSize;
 
 		// Allocate the array.
 		m_pData = static_cast<byte*>(realloc(m_pData, nBytes));
@@ -103,7 +103,7 @@ void CArray::Reserve(size_t nSize)
 	m_nAllocSize = (nSize + 3) & ~3;
 
 	// Calculate number of bytes to allocate.
-	int nBytes = m_nAllocSize * m_nItemSize;
+	size_t nBytes = m_nAllocSize * m_nItemSize;
 
 	// Allocate it...
 	m_pData = static_cast<byte*>(realloc(m_pData, nBytes));
@@ -146,7 +146,7 @@ void CArray::Set(size_t nIndex, const void* pItem)
 *******************************************************************************
 */
 
-int CArray::Add(const void* pItem)
+size_t CArray::Add(const void* pItem)
 {
 	// Increase buffer by 1.
 	Reserve(m_nSize+1);
@@ -184,7 +184,7 @@ void CArray::Insert(size_t nIndex, const void* pItem)
 	byte* pPos = m_pData + (nIndex * m_nItemSize);
 
 	// Calculate the size of bytes to move up.
-	int nBytes = (m_nSize - nIndex) * m_nItemSize;
+	size_t nBytes = (m_nSize - nIndex) * m_nItemSize;
 
 	// Move all existing items up one.
 	memmove(pPos + m_nItemSize, pPos, nBytes);
@@ -215,7 +215,7 @@ void CArray::Remove(size_t nIndex)
 	byte* pPos = m_pData + (nIndex * m_nItemSize);
 
 	// Calculate the size of bytes to move down.
-	int nBytes = (m_nSize - nIndex - 1) * m_nItemSize;
+	size_t nBytes = (m_nSize - nIndex - 1) * m_nItemSize;
 
 	// Move all existing items down one.
 	memmove(pPos, pPos + m_nItemSize, nBytes);

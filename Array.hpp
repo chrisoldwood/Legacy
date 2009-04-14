@@ -62,7 +62,7 @@ protected:
 	void* operator[](size_t nIndex) const;
 
 	void Set(size_t nIndex, const void* pItem);
-	int  Add(const void* pItem);
+	size_t Add(const void* pItem);
 	void Insert(size_t nIndex, const void* pItem);
 	void Remove(size_t nIndex);
 	void RemoveAll();
