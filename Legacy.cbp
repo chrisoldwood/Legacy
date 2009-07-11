@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Legacy" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option output="Debug\lib" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-O0" />
+					<Add option="-frtti" />
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_LIB" />
+					<Add directory="..\..\Lib" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="..\..\Lib" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Release Win32">
+				<Option output="Release\lib" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-frtti" />
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_LIB" />
+					<Add directory="..\..\Lib" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="..\..\Lib" />
+				</ResourceCompiler>
+			</Target>
+		</Build>
+		<Unit filename="Array.cpp" />
+		<Unit filename="Array.hpp" />
+		<Unit filename="Common.hpp" />
+		<Unit filename="FileFinder.cpp" />
+		<Unit filename="FileFinder.hpp" />
+		<Unit filename="HandleMap.hpp" />
+		<Unit filename="IntPtrMap.hpp" />
+		<Unit filename="Map.cpp" />
+		<Unit filename="Map.hpp" />
+		<Unit filename="MapIter.cpp" />
+		<Unit filename="MapIter.hpp" />
+		<Unit filename="STLUtils.hpp" />
+		<Unit filename="StrPtrMap.hpp" />
+		<Unit filename="TArray.hpp" />
+		<Unit filename="TMap.hpp" />
+		<Unit filename="TMapIter.hpp" />
+		<Unit filename="TTree.hpp" />
+		<Unit filename="TTreeIter.hpp" />
+		<Unit filename="pch.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
