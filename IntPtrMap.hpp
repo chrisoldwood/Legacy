@@ -19,7 +19,7 @@
 #include "Map.hpp"
 
 /******************************************************************************
-** 
+**
 ** This is the base class used for items stored in an int->ptr map collection.
 **
 *******************************************************************************
@@ -45,10 +45,15 @@ public:
 	//
 	int		m_iKey;
 	void*	m_pObject;
+
+private:
+	// NotCopyable.
+	CIntPtrMapItem(const CIntPtrMapItem&);
+	CIntPtrMapItem& operator=(const CIntPtrMapItem&);
 };
 
 /******************************************************************************
-** 
+**
 ** This is the map used to link int values to objects.
 **
 *******************************************************************************
@@ -61,7 +66,7 @@ public:
 	// Constructors/Destructor.
 	//
 	CIntPtrMap();
-	~CIntPtrMap();
+	virtual ~CIntPtrMap();
 
 	//
 	// Methods.

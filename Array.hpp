@@ -17,7 +17,7 @@
 #endif
 
 /******************************************************************************
-** 
+**
 ** This is the base class for all array collections.
 **
 *******************************************************************************
@@ -45,7 +45,7 @@ protected:
 	//
 	CArray(size_t nItemSize);
 	CArray(const CArray& rArray);
-	~CArray();
+	virtual ~CArray();
 
 	//
 	// Members.
@@ -68,6 +68,10 @@ protected:
 	void RemoveAll();
 
 	void Sort(PFNQSCOMPARE pfnCompare);
+
+private:
+	// NotCopyable.
+	CArray& operator=(const CArray&);
 };
 
 /******************************************************************************

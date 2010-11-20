@@ -17,19 +17,18 @@
 #endif
 
 /******************************************************************************
-** 
+**
 ** This is the base class used for items stored in a map collection.
 **
 *******************************************************************************
 */
 
-class CMapItem
+class CMapItem /*: private NotCopyable*/
 {
 public:
 	//
 	// Constructors/Destructor.
 	//
-	CMapItem();
 	virtual ~CMapItem();
 
 	//
@@ -43,10 +42,21 @@ public:
 	// Members.
 	//
 	CMapItem*	m_pNext;	// The next item in the collision chain.
+
+protected:
+	//
+	// Constructors/Destructor.
+	//
+	CMapItem();
+
+private:
+	// NotCopyable.
+	CMapItem(const CMapItem&);
+	CMapItem& operator=(const CMapItem&);
 };
 
 /******************************************************************************
-** 
+**
 ** The is the base class for all map collections.
 **
 *******************************************************************************
@@ -68,8 +78,8 @@ protected:
 	// Constructors/Destructor.
 	//
 	CMap();
-	~CMap();
-	
+	virtual ~CMap();
+
 	//
 	// Derived class methods.
 	//

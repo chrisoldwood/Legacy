@@ -175,7 +175,7 @@ size_t CArray::Add(const void* pItem)
 
 void CArray::Insert(size_t nIndex, const void* pItem)
 {
-	ASSERT((nIndex >= 0) && (nIndex <= m_nSize));
+	ASSERT(nIndex <= m_nSize);
 
 	// Increase buffer by 1.
 	Reserve(m_nSize+1);
@@ -209,7 +209,7 @@ void CArray::Insert(size_t nIndex, const void* pItem)
 
 void CArray::Remove(size_t nIndex)
 {
-	ASSERT((nIndex >= 0) && (nIndex < m_nSize));
+	ASSERT(nIndex < m_nSize);
 
 	// Calculate offset to the item.
 	byte* pPos = m_pData + (nIndex * m_nItemSize);

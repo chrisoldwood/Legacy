@@ -19,7 +19,7 @@
 #include "Map.hpp"
 
 /******************************************************************************
-** 
+**
 ** This is the base class used for items stored in a str->ptr map collection.
 **
 *******************************************************************************
@@ -45,10 +45,15 @@ public:
 	//
 	CString	m_strKey;
 	void*	m_pObject;
+
+private:
+	// NotCopyable.
+	CStrPtrMapItem(const CStrPtrMapItem&);
+	CStrPtrMapItem& operator=(const CStrPtrMapItem&);
 };
 
 /******************************************************************************
-** 
+**
 ** This is the map used to link strings to objects.
 **
 *******************************************************************************

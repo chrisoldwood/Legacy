@@ -19,7 +19,7 @@
 #include "Array.hpp"
 
 /******************************************************************************
-** 
+**
 ** This is a template class used for arrays of primitive types.
 **
 *******************************************************************************
@@ -35,7 +35,7 @@ public:
 	// Constructors/Destructor.
 	//
 	TArray();
-	~TArray();
+	virtual ~TArray();
 
 	//
 	// Methods.
@@ -78,7 +78,7 @@ private:
 };
 
 /******************************************************************************
-** 
+**
 ** This is a TArray based class used for arrays of pointers to objects.
 **
 *******************************************************************************
@@ -106,10 +106,12 @@ private:
 	// Disallow copies for now.
 	TPtrArray(const TPtrArray<T>&);
 	void operator=(const TPtrArray<T>&);
+
+	typedef TArray<T*> Base;
 };
 
 /******************************************************************************
-** 
+**
 ** This is a TPtrArray based class used for arrays of references to objects.
 **
 *******************************************************************************
@@ -282,16 +284,16 @@ template<class T> inline TPtrArray<T>::~TPtrArray()
 
 template<class T> inline void TPtrArray<T>::Delete(size_t nIndex)
 {
-	delete TArray<T*>::At(nIndex);
-	Remove(nIndex);
+	delete Base::At(nIndex);
+	Base::Remove(nIndex);
 }
 
 template<class T> inline void TPtrArray<T>::DeleteAll()
 {
-	for (size_t i = 0; i < Size(); ++i)
-		delete TArray<T*>::At(i);
+	for (size_t i = 0; i < Base::Size(); ++i)
+		delete Base::At(i);
 
-	RemoveAll();
+	Base::RemoveAll();
 }
 
 template<class T> inline void TPtrArray<T>::ShallowCopy(const TPtrArray<T>& oRHS)
