@@ -52,7 +52,7 @@ public:
 	void Remove(size_t nIndex);
 	void RemoveAll();
 
-	int  Find(T Item) const;
+	size_t Find(T Item) const;
 	void Swap(size_t nIndex1, size_t nIndex2);
 
 	void Sort(PFNCOMPARE pfnCompare);
@@ -201,7 +201,7 @@ template<class T> inline void TArray<T>::RemoveAll()
 	CArray::RemoveAll();
 }
 
-template<class T> inline int TArray<T>::Find(T Item) const
+template<class T> inline size_t TArray<T>::Find(T Item) const
 {
 	for (size_t i = 0; i < Size(); ++i)
 	{
@@ -209,7 +209,7 @@ template<class T> inline int TArray<T>::Find(T Item) const
 			return i;
 	}
 
-	return -1;
+	return Core::npos;
 }
 
 template<class T> inline void TArray<T>::Swap(size_t nIndex1, size_t nIndex2)

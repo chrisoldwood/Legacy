@@ -53,17 +53,17 @@ inline void DeleteAll(std::vector<T>& vVector)
 }
 
 /******************************************************************************
-** Find the index of the element within the vector. Returns -1 if not found.
+** Find the index of the element within the vector. Returns npos if not found.
 ** NB: Used as a replacement for TPtrArray::Find().
 */
 
 template <typename T>
-inline int FindIndexOf(std::vector<T>& vVector, T Value)
+inline size_t FindIndexOf(std::vector<T>& vVector, T Value)
 {
 	std::vector<T>::const_iterator oIter = std::find(vVector.begin(), vVector.end(), Value);
 
 	if (oIter == vVector.end())
-		return -1;
+		return Core::npos;
 
 	return oIter-vVector.begin();
 }
